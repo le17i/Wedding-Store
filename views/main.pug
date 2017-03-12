@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+        title Wedding Store
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        link(href='/assets/css/theme.css', rel='stylesheet')
+        link(href='/assets/css/toolbar.css', rel='stylesheet')
+        link(href='/assets/css/list.css', rel='stylesheet')
+    body
+        header.toolbar
+            h1.toolbar--title Wedding Store
+
+        main.main
+            ul.list
+                li.list-item
+                    span.list-item--identifier
+                        i.material-icons dashboard
+                    span.list-item--first-content
+                        span.list-item--title Nome do produto
+                        span.list-item--subtitle R$ 0,00
+                    span.list-item--second-content
+                        i.material-icons add_circle
+        script(src='/vendor/angular/angular.min.js')

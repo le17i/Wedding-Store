@@ -1,0 +1,24 @@
+{
+  "name": "wedding-store",
+  "version": "1.0.0",
+  "description": "A progressive web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/le17i/Wedding-Store.git"
+  },
+  "author": "Leandro Dias <ledias.17@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/le17i/Wedding-Store/issues"
+  },
+  "homepage": "https://github.com/le17i/Wedding-Store#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "pug": "^2.0.0-beta11"
+  }
+}
