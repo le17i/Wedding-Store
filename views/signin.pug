@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        title Sign In - Wedding Store
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        link(href='/assets/css/theme.css', rel='stylesheet')
+        link(href='/assets/css/align.css', rel='stylesheet')
+        link(href='/assets/css/titles.css', rel='stylesheet')
+        link(href='/assets/css/forms.css', rel='stylesheet')
+        link(href='/assets/css/buttons.css', rel='stylesheet')
+    body
+        main.main
+            form.sign.form(method="post", action="/sign/in")
+                h1.title.t1 Sign In
+                if message
+                    p.subtitle #{message}
+                div.field
+                    input#email.input(type="text", name="email", required="")
+                    label.label(for="email") E-mail
+                div.field
+                    input#password.input(type="password", name="password", required="")
+                    label.label(for="password") Password
+                div.submit-field.text-right
+                    a.btn.btn-default(href="/sign/up") Sign Up
+                    button.btn.btn-raised.btn-indigo(type="submit") Sign In

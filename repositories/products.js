@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://writer:writer#12358@ds129090.mlab.com:29090/wedding-store';
-
-mongoose.connect(mongoURI);
 
 function productRepository() {
     let schema = { name: mongoose.SchemaTypes.String, value: mongoose.SchemaTypes.Number, userId: mongoose.SchemaTypes.ObjectId };
@@ -50,8 +47,8 @@ productRepository.prototype.update = function(id, name, value, userId, callback)
     });
 };
 
-productRepository.prototype.remove = function(id, callback) {
-    this.model.remove({ _id: id }, (err) => {
+productRepository.prototype.remove = function(id, userId, callback) {
+    this.model.remove({ _id: id, userId: userId }, (err) => {
         if(err) {
             return callback(err, false);
         }

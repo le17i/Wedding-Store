@@ -1,0 +1,105 @@
+input:-webkit-autofill, select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  border-color: #DDD;
+}
+
+.form {
+  padding: 16px;
+}
+
+.form input,
+.form select {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+.form .field {
+  background-color: #FFF;
+  box-sizing: border-box;
+  height: 72px;
+  padding: 16px 0 8px;
+  position: relative;
+}
+.form .field-half {
+  width: 50%;
+}
+.form .field .input,
+.form .field .select,
+.form .field .label {
+  position: absolute;
+  transition: all ease 0.3s;
+  width: 100%;
+}
+.form .field .input,
+.form .field .select {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  bottom: 8px;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 16px;
+}
+.form .field .input:focus,
+.form .field .select:focus {
+  border-bottom: 2px solid #3F51B5;
+}
+.form .field .input:focus + .label, .form .field .input.has-value + label,
+.form .field .select:focus + .label,
+.form .field .select.has-value + label {
+  color: #3F51B5;
+  font-size: 12px;
+  bottom: 41px;
+}
+.form .field .input.is-dirty:invalid, .form .field .input.is-error,
+.form .field .select.is-dirty:invalid,
+.form .field .select.is-error {
+  border-bottom-color: #F44336;
+}
+.form .field .input.is-dirty:invalid + label, .form .field .input.is-error + label,
+.form .field .select.is-dirty:invalid + label,
+.form .field .select.is-error + label {
+  color: #F44336 !important;
+}
+.form .field .input.is-dirty:invalid ~ .error, .form .field .input.is-error ~ .error,
+.form .field .select.is-dirty:invalid ~ .error,
+.form .field .select.is-error ~ .error {
+  display: block;
+}
+.form .field .label {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 16px;
+}
+.form .field .error {
+  bottom: -12px;
+  color: #F44336;
+  display: none;
+  font-size: 12px;
+  position: absolute;
+}
+.form .field .input {
+  padding-bottom: 8px;
+}
+.form .field .input + .label {
+  bottom: 16px;
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 16px;
+}
+.form .field .select {
+  background-color: transparent;
+  border-radius: 0;
+  padding-bottom: 8px;
+  z-index: 2;
+}
+.form .field .select + .label {
+  bottom: 41px;
+  font-size: 12px;
+}
+.form .field .select + .label:before {
+  color: rgba(0, 0, 0, 0.87);
+  content: "arrow_drop_down";
+  font-family: 'Material Icons';
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  top: 20px;
+}

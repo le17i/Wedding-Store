@@ -1,6 +1,6 @@
 const express = require('express');
-const authMiddleware = require('../midlewares/auth');
-const userRepository = require('../repositories/users');
+const authMiddleware = require('../../../middlewares/auth');
+const userRepository = require('../../../repositories/users');
 let router = express.Router();
 
 router.all(authMiddleware);
@@ -30,7 +30,7 @@ function getItem(req, res) {
 }
 
 function createItem(req, res) {
-    return userRepository.create(res.body.name, (err, response) => {
+    return userRepository.create(res.body.name, res.body.email, res.body.password, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }

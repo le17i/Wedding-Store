@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://writer:writer#12358@ds129090.mlab.com:29090/wedding-store';
-
-mongoose.connect(mongoURI);
 
 function userRepository() {
-    let schema = { name: mongoose.SchemaTypes.String };
+    let schema = { name: mongoose.SchemaTypes.String, email: mongoose.SchemaTypes.String, password: mongoose.SchemaTypes.String };
     this.model = mongoose.model('user', schema);
 }
 
@@ -18,7 +15,7 @@ userRepository.prototype.getAll = function(callback) {
 };
 
 userRepository.prototype.getById = function(id, callback) {
-    return this.model.find({ _id: id }, (err, item) => {
+    return this.model.findById(id, (err, item) => {
         if(err) {
             return callback(err, null);
         }
@@ -26,8 +23,17 @@ userRepository.prototype.getById = function(id, callback) {
     });
 };
 
-userRepository.prototype.create = function(name, callback) {
-    let user = new this.model({ name: name });
+userRepository.prototype.getByEmail = function(email, callback) {
+    return this.model.find({ email: email }, (err, item) => {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, item[0]);
+    });
+};
+
+userRepository.prototype.create = function(name, email, password, callback) {
+    let user = new this.model({ name: name, email: email, password: password });
     user.save((err, item) => {
         if(err) {
             return callback(err, null);
@@ -36,9 +42,11 @@ userRepository.prototype.create = function(name, callback) {
     });
 };
 
-userRepository.prototype.update = function(id, name, callback) {
+userRepository.prototype.update = function(id, name, email, password, callback) {
     this.getById(id, (error, user) => {
         user.name = name;
+        user.email = email;
+        user.password = password;
 
         user.save((err, item) => {
             if(err) {
@@ -58,4 +66,4 @@ userRepository.prototype.remove = function(id, callback) {
     });
 };
 
-module.exports = new productRepository();
+module.exports = new userRepository();

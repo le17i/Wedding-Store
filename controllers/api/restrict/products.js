@@ -1,6 +1,6 @@
 const express = require('express');
-const authMiddleware = require('../midlewares/auth');
-const productRepository = require('../repositories/products');
+const authMiddleware = require('../../../middlewares/auth');
+const productRepository = require('../../../repositories/products');
 let router = express.Router();
 
 router.all(authMiddleware);
@@ -12,7 +12,7 @@ router.delete('/products/:id', removeItem);
 
 
 function getList(req, res) {
-    return productRepository.getAll(req.user.id, (err, response) => {
+    return productRepository.getAll(req.session.user._id, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -21,7 +21,7 @@ function getList(req, res) {
 }
 
 function getItem(req, res) {
-    return productRepository.getAll(res.body.id, req.user.id, (err, response) => {
+    return productRepository.getAll(req.params.id, req.session.user._id, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -30,7 +30,7 @@ function getItem(req, res) {
 }
 
 function createItem(req, res) {
-    return productRepository.create(res.body.name, res.body.value, req.user.id, (err, response) => {
+    return productRepository.create(req.body.name, req.body.value, req.session.user._id, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -39,7 +39,7 @@ function createItem(req, res) {
 }
 
 function updateItem(req, res) {
-    return productRepository.create(res.body.id, res.body.name, res.body.value, req.user.id, (err, response) => {
+    return productRepository.update(req.params.id, req.body.name, req.body.value, req.session.user._id, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -48,7 +48,7 @@ function updateItem(req, res) {
 }
 
 function removeItem(req, res) {
-    return productRepository.create(res.body.id, (err, response) => {
+    return productRepository.remove(req.params.id, req.session.user._id, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }

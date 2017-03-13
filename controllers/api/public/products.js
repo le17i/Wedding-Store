@@ -1,13 +1,13 @@
 const express = require('express');
-const productRepository = require('../repositories/products');
+const productRepository = require('../../../repositories/products');
 let router = express.Router();
 
-router.get('/products', getList);
-router.get('/products/:id', getItem);
+router.get('/products/:userId', getList);
+router.get('/products/:userId/:id', getItem);
 
 
 function getList(req, res) {
-    return productRepository.getAll(req.body.id, (err, response) => {
+    return productRepository.getAll(req.params.userId, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -16,7 +16,7 @@ function getList(req, res) {
 }
 
 function getItem(req, res) {
-    return productRepository.getAll(res.body.id, req.body.id, (err, response) => {
+    return productRepository.getAll(res.params.id, req.params.userId, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
