@@ -20,6 +20,7 @@ app.set('views', './views');
 app.use('/assets', express.static('./assets'));
 app.use('/app', express.static('./app'));
 app.use('/vendor', express.static('./bower_components'));
+app.use('/', express.static('./'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
