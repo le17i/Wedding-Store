@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 
 function productRepository() {
-    let schema = { name: mongoose.SchemaTypes.String, value: mongoose.SchemaTypes.Number, userId: mongoose.SchemaTypes.ObjectId };
+    let schema = {
+        name: mongoose.SchemaTypes.String,
+        value: mongoose.SchemaTypes.Number,
+        isSelected: {
+            type: mongoose.SchemaTypes.Boolean,
+            default: false
+        },
+        userId: mongoose.SchemaTypes.ObjectId
+    };
     this.model = mongoose.model('product', schema);
 }
 
@@ -22,6 +30,15 @@ productRepository.prototype.getById = function(id, userId, callback) {
         return callback(null, item);
     });
 };
+
+productRepository.prototype.select = function(id, userId, callback) {
+    return this.model.findOneAndUpdate({ _id: id, userId: userId }, { isSelected: true }, {}, (err, item) => {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, item);
+    });
+}
 
 productRepository.prototype.create = function(name, value, userId, callback) {
     let product = new this.model({ name: name, value: value, userId: userId});

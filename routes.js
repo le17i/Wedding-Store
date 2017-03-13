@@ -13,3 +13,5 @@ router.use('/api/public/users', require('./controllers/api/public/users'));
 router.use('/api/restrict/', require('./controllers/api/restrict/products'));
 
 module.exports = router;
+
+// localhost:5000/api/public/products/58c688e22085d12fa303aebd/58c68cb3eaa9e13601bf984b

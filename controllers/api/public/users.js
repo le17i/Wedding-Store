@@ -3,7 +3,6 @@ const userRepository = require('../../../repositories/users');
 let router = express.Router();
 
 router.get('/', searchItem);
-router.get('/:id', getItem);
 
 const fields = { _id: 1, name: 1, email: 1 };
 
@@ -18,15 +17,6 @@ function searchItem(req, res) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
         return res.status(200).json({status: 200, data: response });
-    });
-}
-
-function getItem(req, res) {
-    return userRepository.getById(req.body.id, fields, (err, response) => {
-        if(err) {
-            return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
-        }
-        return res.status(200).json({ status: 200, data: response });
     });
 }
 

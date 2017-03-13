@@ -12,6 +12,16 @@ html
         link(href='/assets/css/titles.css', rel='stylesheet')
         link(href='/assets/css/forms.css', rel='stylesheet')
         link(href='/assets/css/buttons.css', rel='stylesheet')
+
+        link(href="/assets/manifest.json", rel="manifest")
+
+        meta(name="apple-mobile-web-app-capable", content="yes")
+        meta(name="apple-mobile-web-app-status-bar-style" content="black")
+        meta(name="apple-mobile-web-app-title", content="Wedding Store")
+        link(rel="apple-touch-icon" href="/assets/images/icon-144.png")
+
+        meta(name="msapplication-TileImage" content="/assets/images/icon-144.png")
+        meta(name="msapplication-TileColor" content="#303F9F")
     body
         header.toolbar
             h1.toolbar--title Search
@@ -33,6 +43,9 @@ html
                             span.list-item--subtitle {{item.email}}
                         a.list-item--second-content(ng-href="/store/{{item._id}}")
                             i.material-icons keyboard_arrow_right
+            
+            button.btn.btn-raised.btn-indigo.js-push-button(disabled="disabled") Enable Push Messages
 
         script(src='/vendor/angular/angular.min.js')
         script(src='/app/main.js')
+        script(src='/assets/js/bootstrap.js')
