@@ -1,32 +1,31 @@
 (function(angular) {
     'use strict';
-    var app = angular.module('wedding-store', []);
+    var app = angular.module('wedding-store-search', []);
 
-    app.controller('mainController', mainController);
+    app.controller('searchController', searchController);
 
-    mainController.$inject = [
+    searchController.$inject = [
         '$scope',
         '$http'
     ];
 
-    function mainController($scope, $http) {
-
-        $scope.storeList = [];
-
-        $scope.getList = function() {
-            $http
-                .get('/api/public/products/' + window.userId)
-                .then(
-                    function(response) {
-                        $scope.storeList = response.data.data;
-                    }
-                );
+    function searchController($scope, $http) {
+        $scope.storesList = [];
+        $scope.search = function() {
+            if($scope.term) {
+                var params = { search: $scope.term };
+                $http
+                    .get('/api/public/users', { params: params })
+                    .then(
+                        function(response) {
+                            $scope.storesList = response.data.data
+                        }
+                    );
+            }
         };
-
-        $scope.getList();
     }
 
     angular.element(function() {
-        angular.bootstrap(document, ['wedding-store']);
+        angular.bootstrap(document, ['wedding-store-search']);
     });
 })(angular);

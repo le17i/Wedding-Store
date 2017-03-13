@@ -1,13 +1,19 @@
 const express = require('express');
-const productRepository = require('../../../repositories/products');
+const userRepository = require('../../../repositories/users');
 let router = express.Router();
 
-router.get('/:userId', getList);
-router.get('/:userId/:id', getItem);
+router.get('/', searchItem);
+router.get('/:id', getItem);
+
+const fields = { _id: 1, name: 1, email: 1 };
 
 
-function getList(req, res) {
-    return productRepository.getAll(req.params.userId, (err, response) => {
+function searchItem(req, res) {
+    if('password' in req.params) {
+        delete req.params.password;
+    }
+
+    return userRepository.search(req.params, fields, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }
@@ -16,7 +22,7 @@ function getList(req, res) {
 }
 
 function getItem(req, res) {
-    return productRepository.getAll(res.params.id, req.params.userId, (err, response) => {
+    return userRepository.getById(req.body.id, fields, (err, response) => {
         if(err) {
             return res.status(500).json({ status: 500, message: 'houston, we have a problem' });
         }

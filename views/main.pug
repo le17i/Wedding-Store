@@ -1,28 +1,38 @@
 doctype html
 html
     head
-        title Wedding Store 
+        title Search store - Wedding Store
         meta(name="viewport", content="width=device-width, initial-scale=1")
         link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
         link(href='/assets/css/theme.css', rel='stylesheet')
         link(href='/assets/css/toolbar.css', rel='stylesheet')
         link(href='/assets/css/list.css', rel='stylesheet')
+        link(href='/assets/css/align.css', rel='stylesheet')
+        link(href='/assets/css/titles.css', rel='stylesheet')
+        link(href='/assets/css/forms.css', rel='stylesheet')
+        link(href='/assets/css/buttons.css', rel='stylesheet')
     body
         header.toolbar
-            h1.toolbar--title Wedding Store
+            h1.toolbar--title Search
+        main.main(ng-controller="searchController")
+            form.sign.form(ng-submit="search()")
+                h1.title.t1 Search store
+                div.field
+                    input#email.input(type="text", name="email", required="", ng-model="term")
+                    label.label(for="email") Search store by email
+                div.submit-field.text-right
+                    button.btn.btn-raised.btn-indigo(type="submit") Search
+            ul.list
+                ul.list(ng-if="storesList.length > 0")
+                    li.list-item(ng-repeat="item in storesList")
+                        span.list-item--identifier
+                            i.material-icons account_circle
+                        span.list-item--first-content
+                            span.list-item--title {{item.name}}
+                            span.list-item--subtitle {{item.email}}
+                        a.list-item--second-content(ng-href="/store/{{item._id}}")
+                            i.material-icons keyboard_arrow_right
 
-        main.main(ng-controller="mainController")
-            ul.list(ng-if="storeList.length > 0")
-                li.list-item(ng-repeat="item in storeList")
-                    span.list-item--identifier
-                        i.material-icons dashboard
-                    span.list-item--first-content
-                        span.list-item--title {{item.name}}
-                        span.list-item--subtitle {{item.value}}
-                    span.list-item--second-content
-                        i.material-icons add_circle
-        script.
-            window.userId = '#{userId}';
         script(src='/vendor/angular/angular.min.js')
         script(src='/app/main.js')

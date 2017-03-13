@@ -5,6 +5,10 @@ function userRepository() {
     this.model = mongoose.model('user', schema);
 }
 
+userRepository.prototype.search = function(params, fields, callback) {
+    return this.model.find(params).select(fields).exec(callback);
+};
+
 userRepository.prototype.getAll = function(callback) {
     return this.model.find({ userId: userId }, (err, items) => {
         if(err) {
@@ -14,7 +18,12 @@ userRepository.prototype.getAll = function(callback) {
     });
 };
 
-userRepository.prototype.getById = function(id, callback) {
+userRepository.prototype.getById = function(id, fields, callback) {
+    if(typeof fields === 'function') {
+        callback = fields;
+        fields = null;
+    }
+
     return this.model.findById(id, (err, item) => {
         if(err) {
             return callback(err, null);
