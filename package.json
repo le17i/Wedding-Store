@@ -25,6 +25,7 @@
     "express-session": "^1.15.1",
     "mongoose": "^4.8.7",
     "node-gcm-service": "^0.2.8",
-    "pug": "^2.0.0-beta11"
+    "pug": "^2.0.0-beta11",
+    "web-push": "^3.2.2"
   }
 }

@@ -4,11 +4,11 @@ const productRepository = require('../../../repositories/products');
 let router = express.Router();
 
 router.all(authMiddleware);
-router.get('/products', getList);
-router.get('/products/:id', getItem);
-router.post('/products', createItem);
-router.put('/products/:id', updateItem);
-router.delete('/products/:id', removeItem);
+router.get('/', getList);
+router.get('/:id', getItem);
+router.post('/', createItem);
+router.put('/:id', updateItem);
+router.delete('/:id', removeItem);
 
 
 function getList(req, res) {

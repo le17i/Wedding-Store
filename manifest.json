@@ -5,9 +5,10 @@
         "src": "/assets/images/icon-144.png",
         "sizes": "144x144"
     }],
-    "start_url": "/",
+    "permissions": ["gcm", "storage"],
+    "start_url": "/admin",
     "display": "standalone",
     "background_color": "#3F51B5",
     "theme_color": "#303F9F",
-    "gcm_sender_id": "AAAAJVPh2II:APA91bFHXg4nJ-uoGs29tIt-JSoL7Bu66sAj1S7DXpbSSf83Ze_2I8tBfM3YAG6kWxglhFHLjOp0hl23wJgKihOig3o5Forj2NxnYrgHC-O2tJ7wUjbBysFFWhJC6EsebRuXY_UCSFMI"
+    "gcm_sender_id": "160321099906"
 }

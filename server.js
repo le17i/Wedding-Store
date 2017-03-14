@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Session configurations
 let sessionKey = {
+    cookieName: 'wedding-store-session_',
     secret: `${Math.random()}${Math.random()}${Math.random()}`,
     resave: true,
     saveUninitialized: false

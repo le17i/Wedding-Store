@@ -1,7 +1,6 @@
 var dataCacheName = 'ws-data-v1';
 var cacheName = 'ws-files-v1';
 var filesToCache = [
-    '/',
     '/assets/images/icon-144.png',
     '/assets/css/align.css',
     '/assets/css/buttons.css',
@@ -11,9 +10,7 @@ var filesToCache = [
     '/assets/css/titles.css',
     '/assets/css/toolbar.css',
     '/vendor/angular/angular.min.js',
-    '/app/admin.js',
-    '/app/main.js',
-    '/app/store.js',
+    '/app/admin.js'
 ];
 
 self.addEventListener('install', function(e) {
@@ -46,13 +43,6 @@ self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
   var dataUrl = '/api/public/';
   if (e.request.url.indexOf(dataUrl) > -1) {
-    /*
-     * When the request URL contains dataUrl, the app is asking for fresh
-     * weather data. In this case, the service worker always goes to the
-     * network and then caches the response. This is called the "Cache then
-     * network" strategy:
-     * https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
-     */
     e.respondWith(
       caches.open(dataCacheName).then(function(cache) {
         return fetch(e.request).then(function(response){
@@ -62,15 +52,45 @@ self.addEventListener('fetch', function(e) {
       })
     );
   } else {
-    /*
-     * The app is asking for app shell files. In this scenario the app uses the
-     * "Cache, falling back to the network" offline strategy:
-     * https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
-     */
     e.respondWith(
       caches.match(e.request).then(function(response) {
         return response || fetch(e.request);
       })
     );
   }
+});
+
+self.addEventListener('push', function(event) {
+  console.log('Received a push message', event);
+
+  var title = 'Yay a message.';
+  var body = 'We have received a push message.';
+  var icon = '/assets/image/icon-144.png';
+  var tag = 'simple-push-demo-notification-tag';
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body: body,
+      icon: icon,
+      tag: tag
+    })
+  );
+});
+
+self.addEventListener('notificationclick', function(event) {
+  console.log('On notification click: ', event.notification.tag);
+  event.notification.close();
+  event.waitUntil(clients.matchAll({
+    type: 'window'
+  }).then(function(clientList) {
+    for (var i = 0; i < clientList.length; i++) {
+      var client = clientList[i];
+      if (client.url === '/' && 'focus' in client) {
+        return client.focus();
+      }
+    }
+    if (clients.openWindow) {
+      return clients.openWindow('/');
+    }
+  }));
 });

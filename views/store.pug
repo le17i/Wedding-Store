@@ -14,13 +14,13 @@ html
 
         main.main(ng-controller="mainController")
             ul.list(ng-if="storeList.length > 0")
-                li.list-item(ng-repeat="item in storeList")
+                li.list-item(ng-repeat="item in storeList", ng-class="{'is-selected': item.isSelected}")
                     span.list-item--identifier
                         i.material-icons dashboard
                     span.list-item--first-content
                         span.list-item--title {{item.name}}
                         span.list-item--subtitle {{item.value}}
-                    span.list-item--second-content
+                    span.list-item--second-content(ng-click="select(item._id)")
                         i.material-icons add_circle
         script.
             window.userId = '#{userId}';

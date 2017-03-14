@@ -23,6 +23,17 @@
                 );
         };
 
+        $scope.select = function(id, index) {
+            var url = '/api/public/products/' + window.userId + '/' + id;
+            $http
+                .put(url)
+                .then(
+                    function(response) {
+                        $scope.storeList[index] = response.data.data;
+                    }
+                );
+        };
+
         $scope.getList();
     }
 
