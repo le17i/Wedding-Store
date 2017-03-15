@@ -61,11 +61,9 @@ self.addEventListener('fetch', function(e) {
 });
 
 self.addEventListener('push', function(event) {
-  console.log('Received a push message', event);
-
-  var title = 'Yay a message.';
-  var body = 'We have received a push message.';
-  var icon = '/assets/image/icon-144.png';
+  var title = 'Product selected';
+  var body = 'You have a new product selected';
+  var icon = '/assets/images/icon-144.png';
   var tag = 'simple-push-demo-notification-tag';
 
   event.waitUntil(
@@ -90,7 +88,7 @@ self.addEventListener('notificationclick', function(event) {
       }
     }
     if (clients.openWindow) {
-      return clients.openWindow('/');
+      return clients.openWindow('/admin');
     }
   }));
 });
